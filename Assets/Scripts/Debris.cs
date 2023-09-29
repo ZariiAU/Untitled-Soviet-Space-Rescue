@@ -7,10 +7,15 @@ public class Debris : MonoBehaviour
     Rigidbody rb;
     public DebrisData debrisData;
 
+    private void Start()
+    {
+        rb = GetComponent<Rigidbody>();
+    }
+
     private void OnCollisionEnter(Collision collision)
     {
         Damageable damageable;
-        if(collision.gameObject.tag == "Player" && collision.gameObject.TryGetComponent(out damageable))
+        if(collision.collider.gameObject.tag == "Player" && collision.collider.gameObject.TryGetComponent(out damageable))
         {
             if(rb.velocity.magnitude > 1)
             {
@@ -18,6 +23,7 @@ public class Debris : MonoBehaviour
                 {
                     case DebrisType.Small:
                         // Do nothing
+                        Debug.Log("Hit " + collision.gameObject.name + " for " + debrisData.damage);
                         break;
 
                     case DebrisType.Medium:
@@ -28,11 +34,12 @@ public class Debris : MonoBehaviour
 
                     case DebrisType.Large:
                         // Damage Player
+                        Debug.Log("Hit " + collision.gameObject.name + " for " + debrisData.damage);
                         break;
                 }
             }
         }
-        else if (collision.gameObject.tag == "Station" && collision.gameObject.TryGetComponent(out damageable))
+        else if (collision.collider.gameObject.tag == "Station" && collision.collider.gameObject.TryGetComponent(out damageable))
         {
             switch (debrisData.debrisType)
             {
