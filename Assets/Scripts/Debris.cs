@@ -23,6 +23,7 @@ public class Debris : MonoBehaviour
                     case DebrisType.Medium:
                         // Damage Player
                         damageable.Damage(debrisData.damage);
+                        Debug.Log("Hit " + collision.gameObject.name + " for " + debrisData.damage);
                         break;
 
                     case DebrisType.Large:

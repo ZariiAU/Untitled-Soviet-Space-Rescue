@@ -184,13 +184,17 @@ MonoBehaviour:
   smallData: {fileID: 11400000, guid: 1ac80f0fec7711443a09504c9dfec0aa, type: 2}
   mediumData: {fileID: 11400000, guid: 60a5b65f1e3df154a9ef663bcaf47869, type: 2}
   largeData: {fileID: 11400000, guid: 50a1a9e971e436745870014a4d9c6333, type: 2}
-  maxSmallAmount: 1192
+  maxSmallAmount: 500
   maxMediumAmount: 2
   maxLargeAmount: 2
   mediumSpawnThreshold: 5
   largeSpawnThreshold: 5
   mediumSpawnChance: 50
   largeSpawnChance: 50
+  maxRotationSpeed: 0.5
+  minRotationSpeed: 0.01
+  maxSpawnDistance: 50
+  minSpawnDistance: -50
 --- !u!1 &230818051
 GameObject:
   m_ObjectHideFlags: 0
@@ -205,7 +209,7 @@ GameObject:
   - component: {fileID: 230818053}
   m_Layer: 0
   m_Name: Sphere (1)
-  m_TagString: Untagged
+  m_TagString: Station
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -310,7 +314,7 @@ GameObject:
   - component: {fileID: 489848632}
   m_Layer: 0
   m_Name: Sphere
-  m_TagString: Untagged
+  m_TagString: Station
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -415,7 +419,7 @@ GameObject:
   - component: {fileID: 688223166}
   m_Layer: 0
   m_Name: Capsule (2)
-  m_TagString: Untagged
+  m_TagString: Station
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -595,13 +599,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 705507993}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.40821788, y: -0.23456968, z: 0.10938163, w: 0.8754261}
+  m_LocalRotation: {x: 0.17827879, y: 0.52047116, z: 0.3831747, w: 0.7419594}
   m_LocalPosition: {x: 0, y: 3, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
+  m_LocalEulerAnglesHint: {x: -7.719, y: 66.53, z: 49.559}
 --- !u!1 &713303427
 GameObject:
   m_ObjectHideFlags: 0
@@ -616,7 +620,7 @@ GameObject:
   - component: {fileID: 713303429}
   m_Layer: 0
   m_Name: Capsule (3)
-  m_TagString: Untagged
+  m_TagString: Station
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -723,7 +727,7 @@ GameObject:
   - component: {fileID: 877835656}
   m_Layer: 0
   m_Name: Capsule (1)
-  m_TagString: Untagged
+  m_TagString: Station
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -922,7 +926,7 @@ GameObject:
   - component: {fileID: 974632951}
   m_Layer: 0
   m_Name: Capsule
-  m_TagString: Untagged
+  m_TagString: Station
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1015,6 +1019,100 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 974632949}
   m_Mesh: {fileID: 10208, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1001 &1574356775
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: -8679921383154817045, guid: cf495f504d9e2cc419b6e2ab81f9dbb1, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 239702
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: cf495f504d9e2cc419b6e2ab81f9dbb1, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 119851
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: cf495f504d9e2cc419b6e2ab81f9dbb1, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 119851
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: cf495f504d9e2cc419b6e2ab81f9dbb1, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 1909
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: cf495f504d9e2cc419b6e2ab81f9dbb1, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 759
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: cf495f504d9e2cc419b6e2ab81f9dbb1, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -574
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: cf495f504d9e2cc419b6e2ab81f9dbb1, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: -0.88840973
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: cf495f504d9e2cc419b6e2ab81f9dbb1, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0.095459685
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: cf495f504d9e2cc419b6e2ab81f9dbb1, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0.10302405
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: cf495f504d9e2cc419b6e2ab81f9dbb1, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0.4370374
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: cf495f504d9e2cc419b6e2ab81f9dbb1, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 4.563
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: cf495f504d9e2cc419b6e2ab81f9dbb1, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: -344.494
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: cf495f504d9e2cc419b6e2ab81f9dbb1, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 53.01
+      objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: cf495f504d9e2cc419b6e2ab81f9dbb1, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 833af93f8e5ecf248878c3ac0eb74007, type: 2}
+    - target: {fileID: 919132149155446097, guid: cf495f504d9e2cc419b6e2ab81f9dbb1, type: 3}
+      propertyPath: m_Name
+      value: Earth
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: cf495f504d9e2cc419b6e2ab81f9dbb1, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1574356777}
+  m_SourcePrefab: {fileID: 100100000, guid: cf495f504d9e2cc419b6e2ab81f9dbb1, type: 3}
+--- !u!1 &1574356776 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: cf495f504d9e2cc419b6e2ab81f9dbb1, type: 3}
+  m_PrefabInstance: {fileID: 1574356775}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1574356777
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1574356776}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b831a0ed69dba0a468977406f6a8fc75, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 5.76
 --- !u!1 &2114957742
 GameObject:
   m_ObjectHideFlags: 0
@@ -1026,7 +1124,7 @@ GameObject:
   - component: {fileID: 2114957743}
   m_Layer: 0
   m_Name: Station
-  m_TagString: Untagged
+  m_TagString: Station
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1060,3 +1158,4 @@ SceneRoots:
   - {fileID: 705507995}
   - {fileID: 2114957743}
   - {fileID: 114118396}
+  - {fileID: 1574356775}
