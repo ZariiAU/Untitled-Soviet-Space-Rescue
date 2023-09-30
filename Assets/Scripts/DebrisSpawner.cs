@@ -5,6 +5,8 @@ using UnityEngine;
 
 public class DebrisSpawner : MonoBehaviour
 {
+    public static DebrisSpawner instance;
+
     [Header("Debris Setup")]
     [SerializeField] GameObject debrisBasePrefab;
     [SerializeField] DebrisData smallData;
@@ -31,51 +33,68 @@ public class DebrisSpawner : MonoBehaviour
     [SerializeField] float maxSpawnDistance = 50;
     [SerializeField] float minSpawnDistance = -50;
 
+    private void Awake()
+    {
+        if (instance != null && instance != this)
+        {
+            Destroy(this);
+        }
+        else
+        {
+            instance = this;
+        }
+    }
+
     private void Start()
     {
         for (int i = 0; i < maxSmallAmount; i++)
         {
-            var debris = SpawnDebris(DebrisType.Small);
+            var debris = SpawnDebris(DebrisType.Small, true);
             debris.name = debris.name + i;
         }
         for (int i = 0; i < maxMediumAmount; i++)
         {
-            var debris = SpawnDebris(DebrisType.Medium);
+            var debris = SpawnDebris(DebrisType.Medium, true);
             debris.name = debris.name + i;
         }
         for (int i = 0; i < maxLargeAmount; i++)
         {
-            var debris = SpawnDebris(DebrisType.Large);
+            var debris = SpawnDebris(DebrisType.Large, true);
             debris.name = debris.name + i;
         }
     }
 
-    GameObject SpawnDebris(DebrisType debrisType)
+    public GameObject SpawnDebris(DebrisType debrisType, bool randomiseLocation)
     {
         GameObject debrisInstance = Instantiate(debrisBasePrefab);
 
         switch (debrisType)
         {
             case DebrisType.Small:
-                InitialiseDebris(debrisInstance, smallData);
+                InitialiseDebris(debrisInstance, smallData, randomiseLocation);
                 break;
             case DebrisType.Medium:
-                InitialiseDebris(debrisInstance, mediumData);
+                InitialiseDebris(debrisInstance, mediumData, randomiseLocation);
                 debrisInstance.transform.localScale = debrisInstance.transform.localScale * 3;
                 break;
             case DebrisType.Large:
-                InitialiseDebris(debrisInstance, largeData);
+                InitialiseDebris(debrisInstance, largeData, randomiseLocation);
                 debrisInstance.transform.localScale = debrisInstance.transform.localScale * 10;
                 break;
         }
         return debrisInstance;
     }
 
-    void InitialiseDebris(GameObject debris, DebrisData data)
+    void InitialiseDebris(GameObject debris, DebrisData data, bool randomiseLocation)
     {
-        debris.GetComponent<Debris>().debrisData = data;
-        debris.transform.position = new Vector3(Random.Range(minSpawnDistance, maxSpawnDistance), Random.Range(minSpawnDistance, maxSpawnDistance), Random.Range(minSpawnDistance, maxSpawnDistance));
+        var b = debris.GetComponent<Debris>().debrisData = data;
+
+        if (randomiseLocation)
+            debris.transform.position = new Vector3(Random.Range(minSpawnDistance, maxSpawnDistance), Random.Range(minSpawnDistance, maxSpawnDistance), Random.Range(minSpawnDistance, maxSpawnDistance));
+
+
         debris.transform.rotation = Quaternion.LookRotation(new Vector3(Random.Range(-50, 50), Random.Range(-50, 50), Random.Range(-50, 50)));
+
         // Give the object a bit of spin for flavour.
         debris.GetComponent<Rigidbody>().angularVelocity = new Vector3(Random.Range(minRotationSpeed, maxRotationSpeed), Random.Range(minRotationSpeed, maxRotationSpeed), Random.Range(minRotationSpeed, maxRotationSpeed));
     }

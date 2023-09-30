@@ -8,21 +8,28 @@ public class Damageable : MonoBehaviour, IDamageable
     public UnityEvent OnDeath;
     public UnityEvent OnDamaged;
 
-    [SerializeField] public float Health { get; set; }
+    public float health;
 
     public void Damage(float damage)
     {
-        Health -= damage;
+        health -= damage;
         OnDamaged?.Invoke();
+        if(health <= 0)
+            Die();
     }
 
     public void Die()
     {
-        OnDeath?.Invoke();
+        OnDeath.Invoke();
     }
 
     public void SetHealth(float amount)
     {
-        Health = amount;
+        health = amount;
+    }
+
+    public float GetHealth()
+    {
+        return health;
     }
 }

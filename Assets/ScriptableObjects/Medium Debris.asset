@@ -17,3 +17,4 @@ MonoBehaviour:
   value: 3
   damage: 1
   toolRequired: 1
+  moveSpeed: 0.1

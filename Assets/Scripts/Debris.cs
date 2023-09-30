@@ -1,15 +1,29 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class Debris : MonoBehaviour
 {
     Rigidbody rb;
     public DebrisData debrisData;
+    public GameObject pullTowardGameObject;
+    float timeElapsed;
+    float lerpDuration = 3;
+    float lerpedValue;
 
     private void Start()
     {
+        pullTowardGameObject = GameObject.FindGameObjectWithTag("Station");
         rb = GetComponent<Rigidbody>();
+    }
+
+    private void FixedUpdate()
+    {
+        if(debrisData.debrisType == DebrisType.Medium || debrisData.debrisType == DebrisType.Large)
+        {
+            rb.MovePosition(rb.position + ((pullTowardGameObject.transform.position - rb.position) * debrisData.moveSpeed * Time.fixedDeltaTime));
+        }
     }
 
     private void OnCollisionEnter(Collision collision)

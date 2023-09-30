@@ -6,7 +6,7 @@ using UnityEngine;
 public class ToolData : ScriptableObject
 {
     public ToolType toolType;
-    public Mesh toolModel;
+    public GameObject toolModel;
 }
 
 public enum ToolType

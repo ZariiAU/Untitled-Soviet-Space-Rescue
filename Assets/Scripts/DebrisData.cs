@@ -10,4 +10,5 @@ public class DebrisData : ScriptableObject
     public int value;
     public int damage;
     public ToolType toolRequired;
+    public float moveSpeed = 1;
 }

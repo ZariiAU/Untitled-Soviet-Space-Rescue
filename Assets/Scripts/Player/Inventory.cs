@@ -64,9 +64,10 @@ public class Inventory : MonoBehaviour
 
     void AddToInventory(Debris debris)
     {
-        if(carriedItems + debris.debrisData.value < maxCarriedItems)
+        if(carriedItems + debris.debrisData.value <= maxCarriedItems)
         {
-            if(debris.debrisData.toolRequired == pm.Player.GetComponent<Tool>().data.toolType)
+            if(debris.debrisData.toolRequired == pm.Player.GetComponent<Tool>().data.toolType && debris.debrisData.debrisType != DebrisType.Large 
+                || debris.debrisData.debrisType == DebrisType.Small && debris.debrisData.debrisType != DebrisType.Large)
             {
                 debrisSlot.Add(debris);
                 debris.gameObject.SetActive(false);
