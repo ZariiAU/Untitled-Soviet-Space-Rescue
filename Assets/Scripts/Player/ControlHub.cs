@@ -14,6 +14,7 @@ public class ControlHub : MonoBehaviour
     public UnityEvent upInput;
     public UnityEvent downInput;
     public UnityEvent fireInput;
+    public UnityEvent altFireInput;
 
     public UnityEvent forwardReleasedInput;
     public UnityEvent backwardReleasedInput;
@@ -73,6 +74,10 @@ public class ControlHub : MonoBehaviour
         if (Input.GetKeyUp(KeyCode.Mouse0))
         {
             fireInput.Invoke();
+        }
+        if (Input.GetKeyUp(KeyCode.Mouse1))
+        {
+            altFireInput.Invoke();
         }
         if (Input.GetKeyUp(KeyCode.W))
         {

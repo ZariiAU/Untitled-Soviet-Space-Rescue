@@ -8,6 +8,7 @@ public class Inventory : MonoBehaviour
     Debris[] debrisSlot = new Debris[6];
     [SerializeField] float pickupRange;
     PlayerTracker player;
+    [SerializeField] Transform debrisDropPoint;
     public Debris selectedItem;
 
     private void Start()
@@ -15,33 +16,59 @@ public class Inventory : MonoBehaviour
         ControlHub.Instance.fireInput.AddListener(() => { CheckForObject(); });
         ControlHub.Instance.downScrollInput.AddListener(() => { NextItem(); });
         ControlHub.Instance.upScrollInput.AddListener(() => { PrevItem(); });
+        ControlHub.Instance.altFireInput.AddListener(() => { RemoveFromInventory(selectedItem); });
         player = PlayerTracker.instance;
     }
 
     void NextItem()
     {
-        if (selectedItem == null && debrisSlot[0] != null)
+        // Initialise our selected object when we first scroll and make sure that the array isn't empty
+        if (selectedItem == null && !CheckArrayEmpty(debrisSlot)) 
         {
             selectedItem = debrisSlot[0];
             return;
         }
 
+        // If the inventory is empty, don't try to select anything
+        if (CheckArrayEmpty(debrisSlot))
+        {
+            return;
+        }
+
         int selectedItemIndex = System.Array.IndexOf(debrisSlot, selectedItem);
-        if (selectedItemIndex < debrisSlot.Length - 1 && debrisSlot[selectedItemIndex + 1] != null)
+        if (selectedItemIndex < debrisSlot.Length - 1 && debrisSlot[selectedItemIndex + 1] != null) // Check that we're at least 1 element away from the end of the array and that the next slot isn't empty
         {
             selectedItem = debrisSlot[selectedItemIndex + 1];
         }
         else
         {
-            selectedItem = debrisSlot[0];
+            for (int i = selectedItemIndex; i < debrisSlot.Length; i++)
+            {
+                if (debrisSlot[i] == null && debrisSlot[i + 1])
+                {
+                    selectedItem = debrisSlot[i + 1]; // select nearest occupied slot
+                    break;
+                }
+                else if (i == debrisSlot.Length - 1)
+                {
+                    selectedItem = debrisSlot[0]; // If the array is full, then select the first slot.
+                }
+            }
         }
     }
 
     void PrevItem()
     {
-        if (selectedItem == null && debrisSlot[0] != null) // Initialise our selected object when we first scroll
+        // Initialise our selected object when we first scroll and make sure that the array isn't empty
+        if (selectedItem == null && !CheckArrayEmpty(debrisSlot)) 
         {
             selectedItem = debrisSlot[0];
+            return;
+        }
+
+        // If the inventory is empty, don't try to select anything
+        if (CheckArrayEmpty(debrisSlot))
+        {
             return;
         }
 
@@ -52,14 +79,14 @@ public class Inventory : MonoBehaviour
         }
         else
         {
-            for(int i = 0; i < debrisSlot.Length; i++)
+            for (int i = 0; i < debrisSlot.Length; i++)
             {
-                if (debrisSlot[i] == null)
+                if (debrisSlot[i] == null && debrisSlot[i - 1])
                 {
                     selectedItem = debrisSlot[i - 1]; // If we're less than 1 element away (the beginning), then just select furthest occupied slot
                     break;
                 }
-                else if(i == debrisSlot.Length - 1)
+                else if (i == debrisSlot.Length - 1)
                 {
                     selectedItem = debrisSlot[debrisSlot.Length - 1]; // If the array is full, then select the last slot.
                 }
@@ -94,12 +121,14 @@ public class Inventory : MonoBehaviour
                 debrisSlot[i] = debris;
                 // TODO: Remove object from world here
                 // Disable object
+                debris.gameObject.SetActive(false);
                 break;
             }
             else if (debris.debrisData.debrisType == DebrisType.Medium && i+1 < debrisSlot.Length) // Mediums take up two slots, we can't add one if theres no space.
             {
                 debrisSlot[i] = debris;
                 debrisSlot[i + 1] = debris;
+                debris.gameObject.SetActive(false);
                 break;
             }
         }
@@ -107,22 +136,43 @@ public class Inventory : MonoBehaviour
 
     void RemoveFromInventory(Debris debris)
     {
-        for(var i = 0; i < debrisSlot.Length; i++)
+        if (debris)
         {
-            
-            if (debrisSlot[i] == debris && debrisSlot[i].debrisData.debrisType == DebrisType.Medium)
+            for (var i = 0; i < debrisSlot.Length; i++)
             {
-                // TODO: Spawn the object into the world here
-                // Move referenced object here then enable
-                debrisSlot[i] = null;
-                debrisSlot[i+1] = null;
-            }
-            else if (debrisSlot[i] == debris && debrisSlot[i].debrisData.debrisType == DebrisType.Small)
-            {
-                // TODO: Spawn the object into the world here
-                // Move referenced object here then enable
-                debrisSlot[i] = null;
+                if (debrisSlot[i] == debris && debrisSlot[i].debrisData.debrisType == DebrisType.Medium)
+                {
+                    // TODO: Spawn the object into the world here
+                    // Move referenced object here then enable
+                    debrisSlot[i] = null;
+                    debrisSlot[i + 1] = null;
+                    selectedItem = null;
+                    debris.gameObject.transform.position = debrisDropPoint.position;
+                    debris.gameObject.SetActive(true);
+                }
+                else if (debrisSlot[i] == debris && debrisSlot[i].debrisData.debrisType == DebrisType.Small)
+                {
+                    // TODO: Spawn the object into the world here
+                    // Move referenced object here then enable
+                    debrisSlot[i] = null;
+                    selectedItem = null;
+                    debris.gameObject.transform.position = debrisDropPoint.position;
+                    debris.gameObject.SetActive(true);
+                }
             }
         }
+    }
+
+    bool CheckArrayEmpty(Debris[] arr)
+    {
+        for(int i = 0; i < arr.Length; i++)
+        {
+            if (arr[i] != null)
+            {
+                return false;
+            }
+            else continue;
+        }
+        return true;
     }
 }
