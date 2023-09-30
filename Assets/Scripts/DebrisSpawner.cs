@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class DebrisSpawner : MonoBehaviour
@@ -34,19 +35,22 @@ public class DebrisSpawner : MonoBehaviour
     {
         for (int i = 0; i < maxSmallAmount; i++)
         {
-            SpawnDebris(DebrisType.Small);
+            var debris = SpawnDebris(DebrisType.Small);
+            debris.name = debris.name + i;
         }
         for (int i = 0; i < maxMediumAmount; i++)
         {
-            SpawnDebris(DebrisType.Medium);
+            var debris = SpawnDebris(DebrisType.Medium);
+            debris.name = debris.name + i;
         }
         for (int i = 0; i < maxLargeAmount; i++)
         {
-            SpawnDebris(DebrisType.Large);
+            var debris = SpawnDebris(DebrisType.Large);
+            debris.name = debris.name + i;
         }
     }
 
-    void SpawnDebris(DebrisType debrisType)
+    GameObject SpawnDebris(DebrisType debrisType)
     {
         GameObject debrisInstance = Instantiate(debrisBasePrefab);
 
@@ -64,6 +68,7 @@ public class DebrisSpawner : MonoBehaviour
                 debrisInstance.transform.localScale = debrisInstance.transform.localScale * 10;
                 break;
         }
+        return debrisInstance;
     }
 
     void InitialiseDebris(GameObject debris, DebrisData data)
@@ -71,6 +76,7 @@ public class DebrisSpawner : MonoBehaviour
         debris.GetComponent<Debris>().debrisData = data;
         debris.transform.position = new Vector3(Random.Range(minSpawnDistance, maxSpawnDistance), Random.Range(minSpawnDistance, maxSpawnDistance), Random.Range(minSpawnDistance, maxSpawnDistance));
         debris.transform.rotation = Quaternion.LookRotation(new Vector3(Random.Range(-50, 50), Random.Range(-50, 50), Random.Range(-50, 50)));
+        // Give the object a bit of spin for flavour.
         debris.GetComponent<Rigidbody>().angularVelocity = new Vector3(Random.Range(minRotationSpeed, maxRotationSpeed), Random.Range(minRotationSpeed, maxRotationSpeed), Random.Range(minRotationSpeed, maxRotationSpeed));
     }
 }

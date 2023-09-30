@@ -27,7 +27,6 @@ public class ControlHub : MonoBehaviour
 
     private void Awake()
     {
-        // If there is an instance, and it's not me, delete myself.
         if (Instance != null && Instance != this)
         {
             Destroy(this);
@@ -70,6 +69,10 @@ public class ControlHub : MonoBehaviour
         if (Input.GetKey(KeyCode.LeftControl))
         {
             downInput.Invoke();
+        }
+        if (Input.GetKeyUp(KeyCode.Mouse0))
+        {
+            fireInput.Invoke();
         }
         if (Input.GetKeyUp(KeyCode.W))
         {
