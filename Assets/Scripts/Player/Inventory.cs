@@ -5,91 +5,44 @@ using UnityEngine;
 
 public class Inventory : MonoBehaviour
 {
-    Debris[] debrisSlot = new Debris[6];
+    [SerializeField] List<Debris> debrisSlot = new List<Debris>();
     [SerializeField] float pickupRange;
-    PlayerTracker player;
+    PlayerTracker pm;
     [SerializeField] Transform debrisDropPoint;
     public Debris selectedItem;
+    int carriedItems = 0;
+    int maxCarriedItems = 6;
 
     private void Start()
     {
         ControlHub.Instance.fireInput.AddListener(() => { CheckForObject(); });
+        ControlHub.Instance.altFireInput.AddListener(() => { RemoveFromInventory(selectedItem); });
         ControlHub.Instance.downScrollInput.AddListener(() => { NextItem(); });
         ControlHub.Instance.upScrollInput.AddListener(() => { PrevItem(); });
-        ControlHub.Instance.altFireInput.AddListener(() => { RemoveFromInventory(selectedItem); });
-        player = PlayerTracker.instance;
+        pm = PlayerTracker.instance;
     }
 
     void NextItem()
     {
-        // Initialise our selected object when we first scroll and make sure that the array isn't empty
-        if (selectedItem == null && !CheckArrayEmpty(debrisSlot)) 
+        if (debrisSlot.Count > 0)
         {
-            selectedItem = debrisSlot[0];
-            return;
-        }
-
-        // If the inventory is empty, don't try to select anything
-        if (CheckArrayEmpty(debrisSlot))
-        {
-            return;
-        }
-
-        int selectedItemIndex = System.Array.IndexOf(debrisSlot, selectedItem);
-        if (selectedItemIndex < debrisSlot.Length - 1 && debrisSlot[selectedItemIndex + 1] != null) // Check that we're at least 1 element away from the end of the array and that the next slot isn't empty
-        {
-            selectedItem = debrisSlot[selectedItemIndex + 1];
-        }
-        else
-        {
-            for (int i = selectedItemIndex; i < debrisSlot.Length; i++)
+            if (debrisSlot.IndexOf(selectedItem) < debrisSlot.Count - 1)
+                selectedItem = debrisSlot[debrisSlot.IndexOf(selectedItem) + 1];
+            else
             {
-                if (debrisSlot[i] == null && debrisSlot[i + 1])
-                {
-                    selectedItem = debrisSlot[i + 1]; // select nearest occupied slot
-                    break;
-                }
-                else if (i == debrisSlot.Length - 1)
-                {
-                    selectedItem = debrisSlot[0]; // If the array is full, then select the first slot.
-                }
+                selectedItem = debrisSlot[0];
             }
         }
     }
-
     void PrevItem()
-    {
-        // Initialise our selected object when we first scroll and make sure that the array isn't empty
-        if (selectedItem == null && !CheckArrayEmpty(debrisSlot)) 
+    {   
+        if(debrisSlot.Count > 0)
         {
-            selectedItem = debrisSlot[0];
-            return;
-        }
-
-        // If the inventory is empty, don't try to select anything
-        if (CheckArrayEmpty(debrisSlot))
-        {
-            return;
-        }
-
-        int selectedItemIndex = System.Array.IndexOf(debrisSlot, selectedItem);
-        if (selectedItemIndex > 0 && debrisSlot[selectedItemIndex - 1] != null) // Check that we're at least 1 element away from the start of the array and that the previous slot isn't empty
-        {
-            selectedItem = debrisSlot[selectedItemIndex - 1];
-        }
-        else
-        {
-            for (int i = 0; i < debrisSlot.Length; i++)
+            if (debrisSlot.IndexOf(selectedItem) > 0)
+                selectedItem = debrisSlot[debrisSlot.IndexOf(selectedItem) - 1];
+            else
             {
-                if (debrisSlot[i] == null && debrisSlot[i - 1])
-                {
-                    selectedItem = debrisSlot[i - 1]; // If we're less than 1 element away (the beginning), then just select furthest occupied slot
-                    break;
-                }
-                else if (i == debrisSlot.Length - 1)
-                {
-                    selectedItem = debrisSlot[debrisSlot.Length - 1]; // If the array is full, then select the last slot.
-                }
+                selectedItem = debrisSlot[debrisSlot.Count - 1];
             }
         }
     }
@@ -97,8 +50,8 @@ public class Inventory : MonoBehaviour
     void CheckForObject()
     {
         RaycastHit hit;
-        Physics.Raycast(player.playerCam.transform.position, player.playerCam.transform.forward, out hit, pickupRange);
-        Debug.DrawRay(player.playerCam.transform.position, player.playerCam.transform.forward, Color.red, 1);
+        Physics.Raycast(pm.playerCam.transform.position, pm.playerCam.transform.forward, out hit, pickupRange);
+        Debug.DrawRay(pm.playerCam.transform.position, pm.playerCam.transform.forward, Color.red, 1);
         if (hit.collider)
         {
             var debris = hit.collider.GetComponent<Debris>();
@@ -111,68 +64,29 @@ public class Inventory : MonoBehaviour
 
     void AddToInventory(Debris debris)
     {
-        for(int i = 0; i < debrisSlot.Length; i++)
+        if(carriedItems + debris.debrisData.value < maxCarriedItems)
         {
-            if (debrisSlot[i] != null) // Check if the current slot is full
-                continue;
-
-            else if (debris.debrisData.debrisType == DebrisType.Small) // If we're picking up small debris, just add it.
+            if(debris.debrisData.toolRequired == pm.Player.GetComponent<Tool>().data.toolType)
             {
-                debrisSlot[i] = debris;
-                // TODO: Remove object from world here
-                // Disable object
+                debrisSlot.Add(debris);
                 debris.gameObject.SetActive(false);
-                break;
-            }
-            else if (debris.debrisData.debrisType == DebrisType.Medium && i+1 < debrisSlot.Length) // Mediums take up two slots, we can't add one if theres no space.
-            {
-                debrisSlot[i] = debris;
-                debrisSlot[i + 1] = debris;
-                debris.gameObject.SetActive(false);
-                break;
+                if (carriedItems == 0)
+                    selectedItem = debris;
+                carriedItems += debris.debrisData.value;
             }
         }
     }
 
     void RemoveFromInventory(Debris debris)
     {
-        if (debris)
+        if (debrisSlot.Contains(debris))
         {
-            for (var i = 0; i < debrisSlot.Length; i++)
-            {
-                if (debrisSlot[i] == debris && debrisSlot[i].debrisData.debrisType == DebrisType.Medium)
-                {
-                    // TODO: Spawn the object into the world here
-                    // Move referenced object here then enable
-                    debrisSlot[i] = null;
-                    debrisSlot[i + 1] = null;
-                    selectedItem = null;
-                    debris.gameObject.transform.position = debrisDropPoint.position;
-                    debris.gameObject.SetActive(true);
-                }
-                else if (debrisSlot[i] == debris && debrisSlot[i].debrisData.debrisType == DebrisType.Small)
-                {
-                    // TODO: Spawn the object into the world here
-                    // Move referenced object here then enable
-                    debrisSlot[i] = null;
-                    selectedItem = null;
-                    debris.gameObject.transform.position = debrisDropPoint.position;
-                    debris.gameObject.SetActive(true);
-                }
-            }
+            debris.transform.position = debrisDropPoint.position;
+            debris.gameObject.SetActive(true);
+            debris.GetComponent<Rigidbody>().AddForce(Vector3.forward * 2);
+            debrisSlot.Remove(debris);
+            carriedItems -= debris.debrisData.value;
+            selectedItem = carriedItems == 0 ? null : debrisSlot[0];
         }
-    }
-
-    bool CheckArrayEmpty(Debris[] arr)
-    {
-        for(int i = 0; i < arr.Length; i++)
-        {
-            if (arr[i] != null)
-            {
-                return false;
-            }
-            else continue;
-        }
-        return true;
     }
 }

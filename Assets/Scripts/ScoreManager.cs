@@ -23,5 +23,8 @@ public class ScoreManager : MonoBehaviour
     {
         Point += amount;
     }
-
+    public void RemovePoints(int amount)
+    {
+        Point -= amount;
+    }
 }

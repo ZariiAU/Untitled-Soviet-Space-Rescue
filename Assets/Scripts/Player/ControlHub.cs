@@ -15,6 +15,12 @@ public class ControlHub : MonoBehaviour
     public UnityEvent downInput;
     public UnityEvent fireInput;
     public UnityEvent altFireInput;
+    public UnityEvent oneInput;
+    public UnityEvent twoInput;
+    public UnityEvent threeInput;
+    public UnityEvent fourInput;
+    public UnityEvent fiveInput;
+    public UnityEvent sixInput;
 
     public UnityEvent forwardReleasedInput;
     public UnityEvent backwardReleasedInput;
@@ -94,6 +100,30 @@ public class ControlHub : MonoBehaviour
         if (Input.GetKeyUp(KeyCode.A))
         {
             leftReleasedInput.Invoke();
+        }
+        if (Input.GetKey(KeyCode.Alpha1))
+        {
+            oneInput.Invoke();
+        }
+        if (Input.GetKey(KeyCode.Alpha2))
+        {
+            twoInput.Invoke();
+        }
+        if (Input.GetKey(KeyCode.Alpha3))
+        {
+            threeInput.Invoke();
+        }
+        if (Input.GetKey(KeyCode.Alpha4))
+        {
+            fourInput.Invoke();
+        }
+        if (Input.GetKey(KeyCode.Alpha5))
+        {
+            fiveInput.Invoke();
+        }
+        if (Input.GetKey(KeyCode.Alpha6))
+        {
+            sixInput.Invoke();
         }
         if (Input.GetAxis("Mouse ScrollWheel") > 0)
         {

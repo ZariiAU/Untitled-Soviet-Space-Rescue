@@ -9,4 +9,5 @@ public class DebrisData : ScriptableObject
     public List<GameObject> models;
     public int value;
     public int damage;
+    public ToolType toolRequired;
 }
