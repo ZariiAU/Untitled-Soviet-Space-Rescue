@@ -2,9 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class Inventory : MonoBehaviour
 {
+    public UnityEvent<Debris> OnItemDropped;
+    public UnityEvent<Debris> OnItemPickedUp;
     [SerializeField] List<Debris> debrisSlot = new List<Debris>();
     [SerializeField] float pickupRange;
     PlayerTracker pm;
@@ -16,7 +19,7 @@ public class Inventory : MonoBehaviour
     private void Start()
     {
         ControlHub.Instance.fireInput.AddListener(() => { CheckForObject(); });
-        ControlHub.Instance.altFireInput.AddListener(() => { RemoveFromInventory(selectedItem); });
+        ControlHub.Instance.altFireInput.AddListener(() => { RemoveFromInventory(selectedItem, true); });
         ControlHub.Instance.downScrollInput.AddListener(() => { NextItem(); });
         ControlHub.Instance.upScrollInput.AddListener(() => { PrevItem(); });
         pm = PlayerTracker.instance;
@@ -54,10 +57,13 @@ public class Inventory : MonoBehaviour
         Debug.DrawRay(pm.playerCam.transform.position, pm.playerCam.transform.forward, Color.red, 1);
         if (hit.collider)
         {
-            var debris = hit.collider.GetComponent<Debris>();
-            if (debris != null)
+            if (hit.collider.GetComponent<Debris>())
             {
-                AddToInventory(debris);
+                var debris = hit.collider.GetComponent<Debris>();
+                if (debris != null)
+                {
+                    AddToInventory(debris);
+                }
             }
         }
     }
@@ -74,20 +80,25 @@ public class Inventory : MonoBehaviour
                 if (carriedItems == 0)
                     selectedItem = debris;
                 carriedItems += debris.debrisData.value;
+                OnItemPickedUp.Invoke(debris);
             }
         }
     }
 
-    void RemoveFromInventory(Debris debris)
+    public void RemoveFromInventory(Debris debris, bool dropInWorld)
     {
         if (debrisSlot.Contains(debris))
         {
-            debris.transform.position = debrisDropPoint.position;
-            debris.gameObject.SetActive(true);
-            debris.GetComponent<Rigidbody>().AddForce(Vector3.forward * 2);
+            if (dropInWorld) 
+            {
+                debris.transform.position = debrisDropPoint.position;
+                debris.gameObject.SetActive(true);
+                debris.GetComponent<Rigidbody>().AddForce(Vector3.forward * 2);
+            }
             debrisSlot.Remove(debris);
             carriedItems -= debris.debrisData.value;
             selectedItem = carriedItems == 0 ? null : debrisSlot[0];
+            OnItemDropped.Invoke(debris);
         }
     }
 }

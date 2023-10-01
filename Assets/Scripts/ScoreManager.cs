@@ -1,11 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class ScoreManager : MonoBehaviour
 {
     public static ScoreManager instance;
-    public int Point { get; private set; }
+    public UnityEvent OnPointAdded;
+    public UnityEvent OnPointRemoved;
+    public UnityEvent OnPointChanged;
+    public int Points { get; private set; }
 
     private void Awake()
     {
@@ -21,10 +25,14 @@ public class ScoreManager : MonoBehaviour
 
     public void AddPoints(int amount)
     {
-        Point += amount;
+        Points += amount;
+        OnPointAdded.Invoke();
+        OnPointChanged.Invoke();
     }
     public void RemovePoints(int amount)
     {
-        Point -= amount;
+        Points -= amount;
+        OnPointRemoved.Invoke();
+        OnPointChanged.Invoke();
     }
 }

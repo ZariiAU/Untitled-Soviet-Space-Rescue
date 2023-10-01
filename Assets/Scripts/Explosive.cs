@@ -36,6 +36,7 @@ public class Explosive : MonoBehaviour
 
             elapsedTime = 0;
             attachedObject.GetComponent<Damageable>().Damage(1);
+            attachedObject.GetComponent<Debris>().OnDestroyed.Invoke();
             Destroy(this);
         }
     }

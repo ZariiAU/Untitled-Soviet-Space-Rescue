@@ -8,9 +8,7 @@ public class Debris : MonoBehaviour
     Rigidbody rb;
     public DebrisData debrisData;
     public GameObject pullTowardGameObject;
-    float timeElapsed;
-    float lerpDuration = 3;
-    float lerpedValue;
+    public UnityEvent OnDestroyed;
 
     private void Start()
     {

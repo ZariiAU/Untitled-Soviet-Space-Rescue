@@ -24,7 +24,6 @@ public class Tool : MonoBehaviour
         if(data.toolType == ToolType.Explosives)
         {
             RaycastHit hit;
-            Debris d;
             if(Physics.Raycast(pm.playerCam.transform.position, pm.playerCam.transform.forward, out hit, pickupRange) )
             {
                 if(hit.collider.GetComponent<Debris>()?.debrisData.debrisType == DebrisType.Large)
@@ -55,6 +54,7 @@ public class Tool : MonoBehaviour
                 var tool = hit.collider.GetComponent<ToolDispenser>();
                 if (tool != null)
                 {
+                    tool.OnInteracted.Invoke();
                     data = tool.toolData;
                     ghost = Instantiate(data.toolModel, transform.position, Quaternion.identity);
                     ghost.SetActive(false);
@@ -69,6 +69,11 @@ public class Tool : MonoBehaviour
                 ex.transform.parent = hit.collider.transform;
                 data = Resources.Load("None") as ToolData;
                 ghost.SetActive(false);
+            }
+
+            else if (hit.collider.GetComponent<IInteractable>())
+            {
+                hit.collider.GetComponent<IInteractable>().Interact();
             }
         }
     }
