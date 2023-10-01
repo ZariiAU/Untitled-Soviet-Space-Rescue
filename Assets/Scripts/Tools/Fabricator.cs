@@ -37,4 +37,22 @@ public class Fabricator : IInteractable
             CreateItem(dispenserPrefab.gameObject);
         }
     }
+    public void Interact(bool removePoints)
+    {
+        var inv = PlayerTracker.instance.GetComponent<Inventory>();
+
+        if (removePoints)
+        {
+            if (ScoreManager.instance.Points >= itemCost && currentDispensedItem == null)
+            {
+
+                ScoreManager.instance.RemovePoints(itemCost);
+                CreateItem(dispenserPrefab.gameObject);
+            }
+        }
+        else
+        {
+            CreateItem(dispenserPrefab.gameObject);
+        }
+    }
 }

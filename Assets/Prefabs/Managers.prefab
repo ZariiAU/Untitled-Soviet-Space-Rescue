@@ -1,0 +1,204 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &3339937371053216717
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7493727751739218577}
+  - component: {fileID: 3306925349411226335}
+  - component: {fileID: 74602780732406775}
+  - component: {fileID: 9032547794226153938}
+  - component: {fileID: 720695611105050211}
+  - component: {fileID: 3358762500399262890}
+  m_Layer: 0
+  m_Name: Managers
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7493727751739218577
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3339937371053216717}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 2.639154, y: -2.492028, z: 6.609783}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3306925349411226335
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3339937371053216717}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3fae3833cf4aac44cbf532d63f696107, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  OnPointAdded:
+    m_PersistentCalls:
+      m_Calls: []
+  OnPointRemoved:
+    m_PersistentCalls:
+      m_Calls: []
+  OnPointChanged:
+    m_PersistentCalls:
+      m_Calls: []
+--- !u!114 &74602780732406775
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3339937371053216717}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4c4e02bee9a72f14b9206d4089aede3c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player: {fileID: 0}
+  playerRB: {fileID: 0}
+  playerCam: {fileID: 0}
+--- !u!114 &9032547794226153938
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3339937371053216717}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a7038fe3ac532fd41960ae596a658fc7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  smallDebrisActive: 0
+  largeDebrisActive: 0
+  mediumDebrisActive: 0
+  largeDebrisSpawned:
+    m_PersistentCalls:
+      m_Calls: []
+  debrisBasePrefab: {fileID: 3399278167823446966, guid: 4989bcf691c6a3647be77f21ff0273ee, type: 3}
+  smallData: {fileID: 11400000, guid: 1ac80f0fec7711443a09504c9dfec0aa, type: 2}
+  mediumData: {fileID: 11400000, guid: 60a5b65f1e3df154a9ef663bcaf47869, type: 2}
+  largeData: {fileID: 11400000, guid: 50a1a9e971e436745870014a4d9c6333, type: 2}
+  station: {fileID: 0}
+  maxSmallAmount: 150
+  maxMediumAmount: 3
+  maxLargeAmount: 1
+  mediumSpawnThreshold: 0
+  largeSpawnThreshold: 10
+  mediumSpawnChance: 50
+  largeSpawnChance: 50
+  maxRotationSpeed: 0.5
+  minRotationSpeed: 0.01
+  maxSmallSpawnDistance: 50
+  maxMediumSpawnDistance: 75.5
+  maxLargeSpawnDistance: 100
+  minSmallSpawnDistance: 10
+  minMediumSpawnDistance: 55
+  minLargeSpawnDistance: 75
+  maxBoundary: 100
+  minBoundary: -100
+--- !u!114 &720695611105050211
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3339937371053216717}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7d115fc9cdc48d248af65a8299a5d6e0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  forwardInput:
+    m_PersistentCalls:
+      m_Calls: []
+  backwardInput:
+    m_PersistentCalls:
+      m_Calls: []
+  leftInput:
+    m_PersistentCalls:
+      m_Calls: []
+  rightInput:
+    m_PersistentCalls:
+      m_Calls: []
+  upInput:
+    m_PersistentCalls:
+      m_Calls: []
+  downInput:
+    m_PersistentCalls:
+      m_Calls: []
+  fireInput:
+    m_PersistentCalls:
+      m_Calls: []
+  altFireInput:
+    m_PersistentCalls:
+      m_Calls: []
+  oneInput:
+    m_PersistentCalls:
+      m_Calls: []
+  twoInput:
+    m_PersistentCalls:
+      m_Calls: []
+  threeInput:
+    m_PersistentCalls:
+      m_Calls: []
+  fourInput:
+    m_PersistentCalls:
+      m_Calls: []
+  fiveInput:
+    m_PersistentCalls:
+      m_Calls: []
+  sixInput:
+    m_PersistentCalls:
+      m_Calls: []
+  forwardReleasedInput:
+    m_PersistentCalls:
+      m_Calls: []
+  backwardReleasedInput:
+    m_PersistentCalls:
+      m_Calls: []
+  leftReleasedInput:
+    m_PersistentCalls:
+      m_Calls: []
+  rightReleasedInput:
+    m_PersistentCalls:
+      m_Calls: []
+  upReleasedInput:
+    m_PersistentCalls:
+      m_Calls: []
+  downReleasedInput:
+    m_PersistentCalls:
+      m_Calls: []
+  upScrollInput:
+    m_PersistentCalls:
+      m_Calls: []
+  downScrollInput:
+    m_PersistentCalls:
+      m_Calls: []
+--- !u!114 &3358762500399262890
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3339937371053216717}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0174d505fbb60454aa8be03a9a478d9a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

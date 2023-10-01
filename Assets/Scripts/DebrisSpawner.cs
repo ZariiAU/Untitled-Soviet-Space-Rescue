@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class DebrisSpawner : MonoBehaviour
 {
@@ -10,6 +11,8 @@ public class DebrisSpawner : MonoBehaviour
     public int smallDebrisActive;
     public int largeDebrisActive;
     public int mediumDebrisActive;
+    public UnityEvent largeDebrisSpawned;
+    bool hasWarnedLarge;
 
     [Header("Debris Setup")]
     [SerializeField] GameObject debrisBasePrefab;
@@ -128,6 +131,15 @@ public class DebrisSpawner : MonoBehaviour
         {
             SpawnDebris(DebrisType.Large, true);
             largeDebrisActive++;
+        }
+        if(largeDebrisActive > 0 && !hasWarnedLarge)
+        {
+            largeDebrisSpawned.Invoke();
+            hasWarnedLarge = true;
+        }
+        if (largeDebrisActive <= 0)
+        {
+            hasWarnedLarge = false;
         }
     }
 
