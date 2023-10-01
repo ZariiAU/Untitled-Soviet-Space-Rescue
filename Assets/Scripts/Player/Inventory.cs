@@ -76,11 +76,11 @@ public class Inventory : MonoBehaviour
                 || debris.debrisData.debrisType == DebrisType.Small && debris.debrisData.debrisType != DebrisType.Large)
             {
                 debrisSlot.Add(debris);
+                OnItemPickedUp.Invoke(debris);
                 debris.gameObject.SetActive(false);
                 if (carriedItems == 0)
                     selectedItem = debris;
                 carriedItems += debris.debrisData.value;
-                OnItemPickedUp.Invoke(debris);
             }
         }
     }

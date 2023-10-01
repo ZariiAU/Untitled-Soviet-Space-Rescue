@@ -156,6 +156,7 @@ public class DebrisSpawner : MonoBehaviour
     {
         var b = debris.GetComponent<Debris>();
         b.debrisData = data;
+        //Instantiate(b.debrisData.models[Random.Range(0, b.debrisData.models.Count)], transform); // Spawn a model
 
         if (randomiseLocation)
         {
@@ -209,5 +210,7 @@ public class DebrisSpawner : MonoBehaviour
         debris.GetComponent<Rigidbody>().angularVelocity = new Vector3(Random.Range(minRotationSpeed, maxRotationSpeed), Random.Range(minRotationSpeed, maxRotationSpeed), Random.Range(minRotationSpeed, maxRotationSpeed));
         if(b.debrisData.debrisType == DebrisType.Large)
             b.OnDestroyed.AddListener(() => { largeDebrisActive--; });
+        else if(b.debrisData.debrisType == DebrisType.Medium)
+            b.OnDestroyed.AddListener(() => { mediumDebrisActive--; });
     }
 }

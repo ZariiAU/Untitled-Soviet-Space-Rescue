@@ -7,5 +7,9 @@ public class ToolDispenser : MonoBehaviour
 {
     public ToolData toolData;
     public UnityEvent OnInteracted;
-    
+
+    private void Start()
+    {
+    }
+
 }

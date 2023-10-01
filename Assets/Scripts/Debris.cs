@@ -51,7 +51,7 @@ public class Debris : MonoBehaviour
                 }
             }
         }
-        else if (collision.collider.gameObject.tag == "Station" && collision.collider.gameObject.TryGetComponent(out damageable))
+        else if (collision.collider.gameObject.tag == "Station" && collision.collider.transform.parent.TryGetComponent(out damageable))
         {
             switch (debrisData.debrisType)
             {
@@ -61,10 +61,13 @@ public class Debris : MonoBehaviour
 
                 case DebrisType.Medium:
                     damageable.Damage(debrisData.damage);
+                    OnDestroyed.Invoke();
+                    Destroy(gameObject);
                     break;
 
                 case DebrisType.Large:
-                    // Game Over
+                    damageable.Damage(debrisData.damage);
+                    OnDestroyed.Invoke();
                     break;
             }
         }
