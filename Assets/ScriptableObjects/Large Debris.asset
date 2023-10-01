@@ -13,7 +13,8 @@ MonoBehaviour:
   m_Name: Large Debris
   m_EditorClassIdentifier: 
   debrisType: 2
-  models: []
+  models:
+  - {fileID: 4034749016398762472, guid: 6bf318b0eea1fff4c959feea7c502eb0, type: 3}
   value: 0
   damage: 10000
   toolRequired: 3

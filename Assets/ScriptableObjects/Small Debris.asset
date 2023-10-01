@@ -13,5 +13,11 @@ MonoBehaviour:
   m_Name: Small Debris
   m_EditorClassIdentifier: 
   debrisType: 0
-  models: []
+  models:
+  - {fileID: 7669455162182135073, guid: 6e7af9a0887a82d489f5c6f365308d1c, type: 3}
+  - {fileID: 7669455162182135073, guid: bf777ffaafe13034b8ca76c2c2fc669e, type: 3}
+  - {fileID: 7669455162182135073, guid: 51b7f9db05a766a439f79d48c59903eb, type: 3}
   value: 1
+  damage: 0
+  toolRequired: 0
+  moveSpeed: 1
