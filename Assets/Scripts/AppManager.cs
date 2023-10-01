@@ -21,7 +21,7 @@ public class AppManager : MonoBehaviour
 
     public void ReloadScene()
     {
-        SceneManager.LoadScene(1);
+        SceneManager.LoadScene(0);
     }
 
     public void PauseTime(bool paused)
