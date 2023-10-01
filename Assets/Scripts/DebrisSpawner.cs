@@ -146,6 +146,7 @@ public class DebrisSpawner : MonoBehaviour
     public GameObject SpawnDebris(DebrisType debrisType, bool randomiseLocation)
     {
         GameObject debrisInstance = Instantiate(debrisBasePrefab);
+        debrisInstance.transform.parent = transform;
 
         switch (debrisType)
         {

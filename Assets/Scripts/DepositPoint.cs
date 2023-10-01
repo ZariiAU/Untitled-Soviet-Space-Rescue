@@ -10,7 +10,9 @@ public class DepositPoint : IInteractable
         if (inv.selectedItem)
         {
             ScoreManager.instance.AddPoints(inv.selectedItem.debrisData.value);
+            var temp = inv.selectedItem;
             inv.RemoveFromInventory(inv.selectedItem, false);
+            Destroy(temp.gameObject);
         }
     }
 }

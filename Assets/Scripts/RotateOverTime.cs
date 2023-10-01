@@ -5,6 +5,8 @@ using UnityEngine;
 public class RotateOverTime : MonoBehaviour
 {
     [SerializeField] float speed;
+    [SerializeField] Vector3 direction;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -14,6 +16,6 @@ public class RotateOverTime : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        transform.Rotate(Vector3.up * speed * Time.deltaTime);
+        transform.Rotate(direction * speed * Time.deltaTime);
     }
 }

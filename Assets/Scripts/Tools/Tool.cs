@@ -10,16 +10,29 @@ public class Tool : MonoBehaviour
     [SerializeField] GameObject ghost;
     [SerializeField] GameObject ghostExplosivePrefab;
     [SerializeField] GameObject explosivePrefab;
+    [SerializeField] Transform toolHoldLocation;
+    [SerializeField] GameObject heldToolVisual;
 
     private void Start()
     {
         pm = PlayerTracker.instance;
         ControlHub.Instance.fireInput.AddListener(() => { CheckForObject(); });
         ghost = Instantiate(ghostExplosivePrefab, transform.position, Quaternion.identity);
+        ghost.SetActive(false);
+        heldToolVisual = Instantiate(data.toolModel, toolHoldLocation, false);
+        heldToolVisual.transform.position = toolHoldLocation.position;
     }
 
     private void Update()
     {
+        if (heldToolVisual != data.toolModel)
+        {
+            Destroy(heldToolVisual);
+            heldToolVisual = data.toolModel;
+            heldToolVisual = Instantiate(data.toolModel, toolHoldLocation, false);
+            heldToolVisual.transform.position = toolHoldLocation.position;
+        }
+
         // Draw Explosive Ghost
         if(data.toolType == ToolType.Explosives)
         {

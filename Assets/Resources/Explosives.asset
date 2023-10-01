@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: Explosives
   m_EditorClassIdentifier: 
   toolType: 3
-  toolModel: {fileID: 3158592065191977648, guid: d89d66df45c73b3488b023495414de37, type: 3}
+  toolModel: {fileID: 3158592065191977648, guid: c53e7610ac90a2e4f8a123429d27c4a0, type: 3}

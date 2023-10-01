@@ -7,7 +7,7 @@ public class Fabricator : IInteractable
     public ToolDispenser dispenserPrefab;
     ToolDispenser currentDispensedItem;
     [SerializeField] Transform dispenseLocation;
-    int itemCost = 12;
+    [SerializeField] int itemCost = 12;
 
     public void CreateItem(GameObject gameObject)
     {
