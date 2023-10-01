@@ -5,6 +5,11 @@ using UnityEngine.SceneManagement;
 
 public class AppManager : MonoBehaviour
 {
+    private void Start()
+    {
+        LockCursor(true);
+        PauseTime(false);
+    }
     public void LockCursor(bool locked)
     {
         if (locked)
