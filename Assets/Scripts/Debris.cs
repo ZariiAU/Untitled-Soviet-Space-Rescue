@@ -9,6 +9,7 @@ public class Debris : MonoBehaviour
     public DebrisData debrisData;
     public GameObject pullTowardGameObject;
     public UnityEvent OnDestroyed;
+    public UnityEvent OnPickup;
 
     private void Start()
     {

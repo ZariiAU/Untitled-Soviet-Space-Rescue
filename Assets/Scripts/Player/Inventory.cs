@@ -77,6 +77,7 @@ public class Inventory : MonoBehaviour
             {
                 debrisSlot.Add(debris);
                 OnItemPickedUp.Invoke(debris);
+                debris.OnPickup.Invoke();
                 debris.gameObject.SetActive(false);
                 if (carriedItems == 0)
                     selectedItem = debris;

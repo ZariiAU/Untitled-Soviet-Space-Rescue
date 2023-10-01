@@ -15,6 +15,11 @@ public class ScoreCounterUI : MonoBehaviour
         scoreManager.OnPointChanged.AddListener(() => { Refresh(); });
     }
 
+    private void OnEnable()
+    {
+        Refresh();
+    }
+
     void Refresh()
     {
         text.text = scoreManager.Points.ToString();
