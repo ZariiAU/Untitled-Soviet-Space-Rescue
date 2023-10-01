@@ -98,7 +98,7 @@ MonoBehaviour:
   maxSmallAmount: 150
   maxMediumAmount: 3
   maxLargeAmount: 1
-  mediumSpawnThreshold: 0
+  mediumSpawnThreshold: 5
   largeSpawnThreshold: 10
   mediumSpawnChance: 50
   largeSpawnChance: 50

@@ -155,11 +155,11 @@ public class DebrisSpawner : MonoBehaviour
                 break;
             case DebrisType.Medium:
                 InitialiseDebris(debrisInstance, mediumData, randomiseLocation);
-                debrisInstance.transform.localScale = debrisInstance.transform.localScale * 3;
+                //debrisInstance.transform.localScale = debrisInstance.transform.localScale * 3;
                 break;
             case DebrisType.Large:
                 InitialiseDebris(debrisInstance, largeData, randomiseLocation);
-                debrisInstance.transform.localScale = debrisInstance.transform.localScale * 10;
+                //debrisInstance.transform.localScale = debrisInstance.transform.localScale * 10;
                 break;
         }
         return debrisInstance;
@@ -169,7 +169,8 @@ public class DebrisSpawner : MonoBehaviour
     {
         var b = debris.GetComponent<Debris>();
         b.debrisData = data;
-        //Instantiate(b.debrisData.models[Random.Range(0, b.debrisData.models.Count)], transform); // Spawn a model
+        var model = Instantiate(b.debrisData.models[Random.Range(0, b.debrisData.models.Count)], b.transform); // Spawn a model
+        model.transform.position = b.transform.position;
 
         if (randomiseLocation)
         {
